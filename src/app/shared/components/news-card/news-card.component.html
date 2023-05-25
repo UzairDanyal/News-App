@@ -1,1 +1,17 @@
-<p>news-card works!</p>
+<div class="card h-100">
+    <img [src]="card?.urlToImage" class="card-img-top" alt="Not Found">
+    <div class="card-body">
+        <h5 class="card-title">{{ card?.title || ''}}</h5>
+        <p class="card-text">{{card?.description || ''}}</p>
+        <!-- source and add to Favorite -->
+        <div class="row">
+            <div class="col-8"> {{card?.source?.name || ''}} </div>
+            <div class="col-4"> fav </div>
+
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <small class="text-muted">{{card.publishedAt}}</small>
+    </div>
+</div>

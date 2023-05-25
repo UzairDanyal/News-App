@@ -9,5 +9,4 @@ import { Iarticle } from '../../models/article.interface';
 export class NewsCardComponent {
   @Input() card: Iarticle = null;
   constructor() {}
-  
 }
