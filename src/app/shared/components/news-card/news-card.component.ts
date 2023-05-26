@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Iarticle } from '../../models/article.interface';
 import { NewsService } from '../../services/news.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-news-card',
@@ -12,10 +13,14 @@ export class NewsCardComponent {
 
   @Output() action: EventEmitter<Iarticle> = new EventEmitter<Iarticle>()
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   toggleFavorite(article: Iarticle): void {
     this.action.emit(article);
+  }
+
+  navigateToArticle(article:Iarticle) : void {
+    this.router.navigateByUrl(`/details/${article.articleId}`);
   }
 
 

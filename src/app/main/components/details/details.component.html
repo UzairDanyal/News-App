@@ -1,0 +1,33 @@
+<div class="container">
+    <!--  Title -->
+    <div>
+        {{article.title}}
+    </div>
+
+    <!-- Time and Facorite -->
+    <div class="row">
+        <div class="col-8"> {{article?.source?.name || ''}} </div>
+        <div class="col-4 text-end">
+            <img [src]="(!article?.isFavorite)? 'assets/icons/heart-regular.svg' : 'assets/icons/heart-solid.svg' "  width="20px" style="cursor:pointer">
+        </div>
+    </div>
+
+    <hr />
+    <!-- Main Image -->
+    <div class="text-center">
+        <img [src]="article.urlToImage" class="card-img-top" style="max-height: 40vh;" />
+    </div>
+
+    <div class="">
+        <h5>
+            {{article.description}}
+        </h5>
+    
+        <p> {{article.content}}</p>
+    
+
+    </div>
+
+
+
+</div>
