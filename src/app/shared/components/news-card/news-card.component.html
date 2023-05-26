@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-8"> {{card?.source?.name || ''}} </div>
             <div class="col-4 text-end">
-                <img src="assets/icons/heart-regular.svg" (click)="addToFavorite(card)" width="20px" style="cursor:pointer">
+                <img [src]="(!card?.isFavorite)? 'assets/icons/heart-regular.svg' : 'assets/icons/heart-solid.svg' " (click)="toggleFavorite(card)" width="20px" style="cursor:pointer">
             </div>
 
         </div>

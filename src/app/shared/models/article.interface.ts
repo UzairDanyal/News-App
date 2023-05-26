@@ -1,6 +1,7 @@
 import { Isource } from './source.interface';
 
 export interface Iarticle {
+  articleId: string
   source: Isource;
   author: string;
   title: string;
@@ -9,4 +10,5 @@ export interface Iarticle {
   urlToImage: string;
   publishedAt: string;
   content: string;
+  isFavorite: boolean;
 }

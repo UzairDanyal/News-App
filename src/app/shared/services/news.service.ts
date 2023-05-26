@@ -35,5 +35,39 @@ export class NewsService {
     }else{
       localStorage.setItem('articles', JSON.stringify([article]));
     }
+
+    return of('Article Added to Favorite Successfully');
   }
+
+
+  addToFavoriteById(articleId: string) {
+    const storage = JSON.parse(localStorage.getItem('articlesId'));
+    if(storage) {
+      storage.push(articleId);
+      localStorage.setItem('articlesId', JSON.stringify(storage));
+    }else{
+      localStorage.setItem('articlesId', JSON.stringify([articleId]));
+    }
+
+    return of('Article Added to Favorite Successfully');
+  }
+
+  removeFavoriteById(articleId: string) {
+    try{
+      let articles = JSON.parse(localStorage.getItem('articles'));
+      let articlesId = JSON.parse(localStorage.getItem('articlesId'));
+      if(articles) {
+        articles = articles.filter(article => article.articleId !== articleId);
+        articlesId = articles.filter(id => id !== articleId);
+        localStorage.setItem('articles', JSON.stringify(articles));
+        localStorage.setItem('articlesId', JSON.stringify(articles));
+      }
+      return of('Article Removed from Favorite Successfully');
+    }catch(error){
+      return of('Server Error: clear local storage.');
+    }
+
+  }
+
+  
 }

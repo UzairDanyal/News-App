@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Iarticle } from 'src/app/shared/models/article.interface';
 import { NewsService } from 'src/app/shared/services/news.service';
+import { getUniqueString } from 'src/app/shared/utils/unique.util';
 
 @Component({
   selector: 'app-main',
@@ -13,7 +14,7 @@ export class MainComponent implements OnInit {
 
 
   filterKeywords = ["CNBC", "China"];  
-  articles: Iarticle[] = [
+  articles: Iarticle[] | any = [
     {
         "source": {
             "id": null,
@@ -279,6 +280,9 @@ export class MainComponent implements OnInit {
 
   }
   ngOnInit() : void {
+    this.articles = this.articles.map((article:Iarticle)=> {
+        return {...article, articleId: getUniqueString(), isFavorite: false}
+  });
     // this.getList();
   }
 
@@ -286,10 +290,40 @@ export class MainComponent implements OnInit {
 
   getList():void {
     firstValueFrom(this.newsService.getLatestNews()).then((response: Iarticle[]) => {
-      this.articles = response;
+      this.articles = response.map((article:Iarticle)=> {
+            return {...article, articleId: getUniqueString(), isFavorite: false}
+      });
     }).catch(error=>{
       console.log(error);
     })
+  }
+
+  toggleFavorite(article: Iarticle) : void {
+    if(!article?.isFavorite){
+        this.addToFavorite(article);
+    }else{
+        this.removeFromFavorite(article);
+    }
+  }
+
+  addToFavorite(article:Iarticle): void {
+    article  = {...article, isFavorite: true};
+    firstValueFrom(this.newsService.addToFavoriteById(article.articleId)).then(response => {
+        let art = this.articles.find(e => e.articleId === article.articleId);
+        art.isFavorite = true;
+        console.log(response)
+    })
+
+    firstValueFrom(this.newsService.addToFavorite(article)).then(response => {
+        let art = this.articles.find(e => e.articleId === article.articleId);
+        art.isFavorite = true;
+        console.log(response)
+    })
+  }
+
+  removeFromFavorite(article):void { 
+    const arti = this.articles.find(e => e.articleId === article.articleId);
+    arti.isFavorite = false;
   }
 
 }

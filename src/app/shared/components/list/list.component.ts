@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Iarticle } from '../../models/article.interface';
 import { UiService } from '../../services/ui.service';
 
@@ -9,7 +9,11 @@ import { UiService } from '../../services/ui.service';
 })
 export class ListComponent implements OnInit {
 
+  
   @Input() list: Iarticle[]=[];
+
+  @Output() action: EventEmitter<Iarticle> = new EventEmitter<Iarticle>()
+
   filterKeywords:string[] = [];
   constructor( private uiService: UiService) {}
 
@@ -23,6 +27,13 @@ export class ListComponent implements OnInit {
       this.filterKeywords = words;
     })
   }
+
+  emitAction(article:Iarticle): void {
+    this.action.emit(article);
+  }
+
+
+  
 
 
 

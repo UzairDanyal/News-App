@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Iarticle } from '../../models/article.interface';
 import { NewsService } from '../../services/news.service';
 
@@ -10,11 +10,13 @@ import { NewsService } from '../../services/news.service';
 export class NewsCardComponent {
   @Input() card: Iarticle = null;
 
-  constructor(private newsService: NewsService) {}
+  @Output() action: EventEmitter<Iarticle> = new EventEmitter<Iarticle>()
 
-  addToFavorite(article: Iarticle): void {
-    this.newsService.addToFavorite(article);
+  constructor() {}
+
+  toggleFavorite(article: Iarticle): void {
+    this.action.emit(article);
   }
-  removeArticle(article:Iarticle): void {
-  }
+
+
 }

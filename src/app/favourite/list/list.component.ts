@@ -21,7 +21,6 @@ export class ListComponent implements OnInit{
 
   getFavouritesList(): void { 
     this.newsService.getFavoriteArticles().subscribe(data => {
-      debugger
       this.favouriteList = data;
     })
   }
