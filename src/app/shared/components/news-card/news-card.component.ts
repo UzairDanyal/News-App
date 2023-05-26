@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Iarticle } from '../../models/article.interface';
+import { NewsService } from '../../services/news.service';
 
 @Component({
   selector: 'app-news-card',
@@ -8,5 +9,12 @@ import { Iarticle } from '../../models/article.interface';
 })
 export class NewsCardComponent {
   @Input() card: Iarticle = null;
-  constructor() {}
+
+  constructor(private newsService: NewsService) {}
+
+  addToFavorite(article: Iarticle): void {
+    this.newsService.addToFavorite(article);
+  }
+  removeArticle(article:Iarticle): void {
+  }
 }

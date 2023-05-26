@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { Iarticle } from '../models/article.interface';
 
 @Injectable({
@@ -15,5 +15,25 @@ export class NewsService {
     return this.http
       .get(this.Url)
       .pipe(map((res: { [key: string]: any }) => res['articles']));
+  }
+
+  getFavoriteArticles(): Observable<Iarticle[]> {
+    let articles = []
+    const storage = JSON.parse(localStorage.getItem('articles'));
+    if(storage && storage.length > 0) {
+      articles = storage;
+    }
+    return of(articles);
+  }
+
+
+  addToFavorite(article: Iarticle) {
+    const storage = JSON.parse(localStorage.getItem('articles'));
+    if(storage) {
+      storage.push(article);
+      localStorage.setItem('articles', JSON.stringify(storage));
+    }else{
+      localStorage.setItem('articles', JSON.stringify([article]));
+    }
   }
 }
