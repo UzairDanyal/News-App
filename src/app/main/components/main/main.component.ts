@@ -280,18 +280,29 @@ export class MainComponent implements OnInit {
 
   }
   ngOnInit() : void {
-    this.articles = this.articles.map((article:Iarticle)=> {
-        return {...article, articleId: getUniqueString(), isFavorite: false}
-  });
-    // this.getList();
+    this.getList();
   }
 
   // get latest news list from server
 
   getList():void {
+    const isExistInFav = (id) => {
+        const articlesId = localStorage.getItem('articlesId');
+        if (articlesId && articlesId.length > 0 && articlesId?.includes(id)) {
+            return true;
+        }
+        return false;
+    }
+
+    this.articles = this.articles .map((article:Iarticle)=> {
+        const uniqueId = article.publishedAt + article.title
+        return {...article, articleId: uniqueId , isFavorite: isExistInFav(uniqueId)}
+  });
+  return 
     firstValueFrom(this.newsService.getLatestNews()).then((response: Iarticle[]) => {
       this.articles = response.map((article:Iarticle)=> {
-            return {...article, articleId: getUniqueString(), isFavorite: false}
+            const uniqueId = article.publishedAt + article.title
+            return {...article, articleId: uniqueId , isFavorite: isExistInFav(uniqueId)}
       });
     }).catch(error=>{
       console.log(error);
@@ -302,7 +313,7 @@ export class MainComponent implements OnInit {
     if(!article?.isFavorite){
         this.addToFavorite(article);
     }else{
-        this.removeFromFavorite(article);
+        this.removeFromFavorite(article.articleId);
     }
   }
 
@@ -311,19 +322,19 @@ export class MainComponent implements OnInit {
     firstValueFrom(this.newsService.addToFavoriteById(article.articleId)).then(response => {
         let art = this.articles.find(e => e.articleId === article.articleId);
         art.isFavorite = true;
-        console.log(response)
     })
 
     firstValueFrom(this.newsService.addToFavorite(article)).then(response => {
         let art = this.articles.find(e => e.articleId === article.articleId);
         art.isFavorite = true;
-        console.log(response)
     })
   }
 
-  removeFromFavorite(article):void { 
-    const arti = this.articles.find(e => e.articleId === article.articleId);
-    arti.isFavorite = false;
+  removeFromFavorite(articleId:string):void { 
+    firstValueFrom(this.newsService.removeFavoriteById(articleId)).then(response => {
+        const arti = this.articles.find(e => e.articleId === articleId);
+        arti.isFavorite = false;
+    })
   }
 
 }

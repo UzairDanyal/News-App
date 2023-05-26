@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 import { Iarticle } from 'src/app/shared/models/article.interface';
 import { NewsService } from 'src/app/shared/services/news.service';
 
@@ -24,4 +25,11 @@ export class ListComponent implements OnInit{
       this.favouriteList = data;
     })
   }
+
+  removeFromFavorite(article:Iarticle):void { 
+    firstValueFrom(this.newsService.removeFavoriteById(article.articleId)).then(response => {
+         this.favouriteList = this.favouriteList.filter(e => e.articleId != article.articleId);
+    })
+  }
+
 }

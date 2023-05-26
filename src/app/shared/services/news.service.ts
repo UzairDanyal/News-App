@@ -30,8 +30,11 @@ export class NewsService {
   addToFavorite(article: Iarticle) {
     const storage = JSON.parse(localStorage.getItem('articles'));
     if(storage) {
-      storage.push(article);
-      localStorage.setItem('articles', JSON.stringify(storage));
+      if(!storage.some(e=>e.articleId == article.articleId)){
+        storage.push(article);
+        localStorage.setItem('articles', JSON.stringify(storage));
+      }
+
     }else{
       localStorage.setItem('articles', JSON.stringify([article]));
     }
@@ -43,8 +46,10 @@ export class NewsService {
   addToFavoriteById(articleId: string) {
     const storage = JSON.parse(localStorage.getItem('articlesId'));
     if(storage) {
-      storage.push(articleId);
-      localStorage.setItem('articlesId', JSON.stringify(storage));
+      if(!storage.some(e=>e == articleId)){
+        storage.push(articleId);
+        localStorage.setItem('articlesId', JSON.stringify(storage));
+      }
     }else{
       localStorage.setItem('articlesId', JSON.stringify([articleId]));
     }
