@@ -1,6 +1,6 @@
 
 <div class="row">
-    <div *ngFor="let item of list" class=" p-3 col-4">
+    <div *ngFor="let item of (list | search : filterKeywords)" class=" p-3 col-6">
         <app-news-card [card] ='item'></app-news-card>
     </div>
-</div>>
+</div>

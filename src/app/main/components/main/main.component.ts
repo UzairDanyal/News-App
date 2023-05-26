@@ -11,6 +11,8 @@ import { NewsService } from 'src/app/shared/services/news.service';
 export class MainComponent implements OnInit {
 
 
+
+  filterKeywords = ["CNBC", "China"];  
   articles: Iarticle[] = [
     {
         "source": {

@@ -1,0 +1,10 @@
+<input type="text" (change)="searchFilter($event)" class="form-control" [(ngModel)]="searchInputValue"  id="search" aria-describedby="emailHelp"
+placeholder="Search">
+
+<div class="d-flex flex-wrap mt-2">
+<p  *ngFor="let word of filterKeywords" class="p-1 search-keyword me-2 ">
+    <span class="p-1">{{word}}</span>
+    <span class="p-1">
+        <i class="fa-solid fa-xmark" style="color: #808080d6; cursor: pointer;" (click)="removeFilterKeyWord(word)"></i>
+</span></p>
+</div>
