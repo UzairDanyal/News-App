@@ -3,16 +3,16 @@
     <div class="card-body">
         <h5 class="card-title pointer" (click)="navigateToArticle(card)" >{{ card?.title || ''}}</h5>
         <p class="card-text pointer" (click)="navigateToArticle(card)">{{card?.description || ''}}</p>
-        <!-- source and add to Favorite -->
-        <div class="row">
-            <div class="col-8"> {{card?.source?.name || ''}} </div>
-            <div class="col-4 text-end">
-                <img [src]="(!card?.isFavorite)? 'assets/icons/heart-regular.svg' : 'assets/icons/heart-solid.svg' " (click)="toggleFavorite(card)" width="20px" style="cursor:pointer">
-            </div>
-        </div>
+
     </div>
 
-    <div class="card-footer">
-        <small class="text-muted">{{card.publishedAt | timeAgo}}</small>
+    <div class="card-footer d-flex justify-content-between">
+        <small class="text-muted"> <span> <i class="fa-solid fa-clock"></i> </span> {{card.publishedAt | timeAgo}} <span> | 
+            {{card?.source?.name || ''}}
+        </span> </small>
+
+        <span class="col-4 text-end">
+            <img [src]="(!card?.isFavorite)? 'assets/icons/heart-regular.svg' : 'assets/icons/heart-solid.svg' " (click)="toggleFavorite(card)" width="20px" style="cursor:pointer">
+        </span>
     </div>
 </div>

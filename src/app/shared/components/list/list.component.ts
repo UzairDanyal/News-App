@@ -11,6 +11,7 @@ export class ListComponent implements OnInit {
 
   
   @Input() list: Iarticle[]=[];
+  @Input() message : string = '';
 
   @Output() action: EventEmitter<Iarticle> = new EventEmitter<Iarticle>()
 
