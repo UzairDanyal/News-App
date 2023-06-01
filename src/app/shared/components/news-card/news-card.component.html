@@ -1,8 +1,9 @@
 <div class="card h-100" >
-    <img [src]="card?.urlToImage" class="card-img-top pointer" alt="Not Found" (click)="navigateToArticle(card)">
+
+    <div><img [src]="card?.urlToImage" class="card-img-top pointer" alt="Not Found" (click)="navigateToArticle(card)"></div>
     <div class="card-body">
         <h5 class="card-title pointer" (click)="navigateToArticle(card)" >{{ card?.title || ''}}</h5>
-        <p class="card-text pointer" (click)="navigateToArticle(card)">{{card?.description || ''}}</p>
+        <p class="card-text pointer description" (click)="navigateToArticle(card)">{{card?.description || ''}}</p>
 
     </div>
 

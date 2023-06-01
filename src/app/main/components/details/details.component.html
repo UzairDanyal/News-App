@@ -6,25 +6,28 @@
 
     <!-- Time and Facorite -->
     <div class="row">
-        <div class="col-8"> <span> <i class="fa-solid fa-clock"></i> </span> {{(article?.publishedAt | timeAgo) || ''}} </div>
+        <div class="col-8"> <span> <i class="fa-solid fa-clock"></i> </span> {{(article?.publishedAt | timeAgo) || ''}}
+        </div>
         <div class="col-4 text-end">
-            <img  (click)="toggleFavorite()" [src]="(!article?.isFavorite)? 'assets/icons/heart-regular.svg' : 'assets/icons/heart-solid.svg' "  width="20px" style="cursor:pointer">
+            <img (click)="toggleFavorite()"
+                [src]="(!article?.isFavorite)? 'assets/icons/heart-regular.svg' : 'assets/icons/heart-solid.svg' "
+                width="20px" style="cursor:pointer">
         </div>
     </div>
 
     <hr />
     <!-- Main Image -->
     <div class="text-center">
-        <img [src]="article?.urlToImage" class="card-img-top" style="max-height: 40vh;" />
+        <img [src]="article?.urlToImage" class="card-img-top" />
     </div>
 
     <div class="p-5">
         <h5>
             {{article?.description || ''}}
         </h5>
-    
+
         <p> {{article?.content || ''}}</p>
-    
+
 
     </div>
 
