@@ -38,10 +38,5 @@ export class DetailsComponent implements OnInit {
 
   toggleFavorite() : void {
     this.favoriteService.toggleFavorite(this.article)
-    // if(!article?.isFavorite){
-    //     this.addToFavorite(article);
-    // }else{
-    //     this.removeFromFavorite(article.articleId);
-    // }
   }
 }

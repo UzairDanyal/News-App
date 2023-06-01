@@ -13,8 +13,6 @@ import { getUniqueString } from 'src/app/shared/utils/unique.util';
 export class MainComponent implements OnInit {
 
 
-
-  filterKeywords = ["CNBC", "China"];  
   articles: Iarticle[] | any = [];
   constructor( private newsService:NewsService, private favoriteService: FavoriteService){
 
@@ -46,31 +44,6 @@ export class MainComponent implements OnInit {
 
   toggleFavorite(article: Iarticle) : void {
     this.favoriteService.toggleFavorite(article)
-    // if(!article?.isFavorite){
-    //     this.addToFavorite(article);
-    // }else{
-    //     this.removeFromFavorite(article.articleId);
-    // }
   }
-
-//   addToFavorite(article:Iarticle): void {
-//     article  = {...article, isFavorite: true};
-//     firstValueFrom(this.newsService.addToFavoriteById(article.articleId)).then(response => {
-//         let art = this.articles.find(e => e.articleId === article.articleId);
-//         art.isFavorite = true;
-//     })
-
-//     firstValueFrom(this.newsService.addToFavorite(article)).then(response => {
-//         let art = this.articles.find(e => e.articleId === article.articleId);
-//         art.isFavorite = true;
-//     })
-//   }
-
-//   removeFromFavorite(articleId:string):void { 
-//     firstValueFrom(this.newsService.removeFavoriteById(articleId)).then(response => {
-//         const arti = this.articles.find(e => e.articleId === articleId);
-//         arti.isFavorite = false;
-//     })
-//   }
 
 }

@@ -29,16 +29,18 @@ export class FavoriteService {
     })
 
     firstValueFrom(this.newsService.addToFavorite(article)).then(response => {
-        // let art = this.articles.find(e => e.articleId === article.articleId);
-        // art.isFavorite = true;
     })
   }
 
   removeFromFavorite(articleId:string):void { 
-    firstValueFrom(this.newsService.removeFavoriteById(articleId)).then(response => {
-        // const arti = this.articles.find(e => e.articleId === articleId);
-        // arti.isFavorite = false;
-    })
+    try {
+      firstValueFrom(this.newsService.removeFavoriteById(articleId)).then(response => {
+      })
+
+    }catch(error) {
+      alert(error);
+    }
+
   }
 
   

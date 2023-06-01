@@ -69,7 +69,7 @@ export class NewsService {
       }
       return of('Article Removed from Favorite Successfully');
     }catch(error){
-      return of('Server Error: clear local storage.');
+      throw new Error('Server Error: clear local storage.');
     }
 
   }
