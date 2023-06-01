@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Iarticle } from 'src/app/shared/models/article.interface';
+import { FavoriteService } from 'src/app/shared/services/favorite.service';
 import { NewsService } from 'src/app/shared/services/news.service';
 import { getUniqueString } from 'src/app/shared/utils/unique.util';
 
@@ -168,7 +169,7 @@ export class MainComponent implements OnInit {
         "description": "A wall of money to replenish the government’s cash hole could cause instability if it makes banks’ deposit issues worse",
         "url": "https://www.wsj.com/articles/for-banks-debt-ceiling-drama-doesnt-end-with-a-deal-c8e96f21",
         "urlToImage": "https://images.wsj.net/im-787100/social",
-        "publishedAt": "2023-05-24T09:30:00Z",
+        "publishedAt": "2023-03-24T09:30:00Z",
         "content": null
     },
     {
@@ -181,7 +182,7 @@ export class MainComponent implements OnInit {
         "description": null,
         "url": "https://www.bloomberg.com/news/articles/2023-05-24/roubini-says-us-debt-talks-may-reach-last-hour-qatar-forum",
         "urlToImage": null,
-        "publishedAt": "2023-05-24T08:45:21Z",
+        "publishedAt": "2023-05-28T08:45:21Z",
         "content": "To continue, please click the box below to let us know you're not a robot."
     },
     {
@@ -194,7 +195,7 @@ export class MainComponent implements OnInit {
         "description": "The annualized 3-month trend in UK core CPI is running at a whopping 13.6%, per the UK Office of National Statistics.",
         "url": "https://www.coindesk.com/markets/2023/05/24/bitcoin-ether-slip-as-uk-core-cpi-reaches-highest-since-1992/",
         "urlToImage": "https://www.coindesk.com/resizer/w5AxitwZyOjQ5eyM5TgHklGkosU=/1200x628/center/middle/cloudfront-us-east-1.images.arcpublishing.com/coindesk/IDINJFBGIVCBBH2QVP4TK3ZKTY.jpg",
-        "publishedAt": "2023-05-24T08:01:00Z",
+        "publishedAt": "2021-05-24T08:01:00Z",
         "content": "Bitcoin slid under the $27,000 level during the Asia trading day, which lead to a market-wide decline in major cryptocurrencies as traders in broader equity markets reacted to poor U.K. inflation fig… [+809 chars]"
     },
     {
@@ -276,7 +277,7 @@ export class MainComponent implements OnInit {
         "content": "Bernard Arnault, the world's richest person, saw $11.2 billion wiped off his fortune on Tuesday, narrowing his lead over Elon Musk, according to the Bloomberg Billionaires Index.\r\nThe retail tycoon n… [+1329 chars]"
     }
 ]
-  constructor( private newsService:NewsService){
+  constructor( private newsService:NewsService, private favoriteService: FavoriteService){
 
   }
   ngOnInit() : void {
@@ -310,31 +311,32 @@ export class MainComponent implements OnInit {
   }
 
   toggleFavorite(article: Iarticle) : void {
-    if(!article?.isFavorite){
-        this.addToFavorite(article);
-    }else{
-        this.removeFromFavorite(article.articleId);
-    }
+    this.favoriteService.toggleFavorite(article)
+    // if(!article?.isFavorite){
+    //     this.addToFavorite(article);
+    // }else{
+    //     this.removeFromFavorite(article.articleId);
+    // }
   }
 
-  addToFavorite(article:Iarticle): void {
-    article  = {...article, isFavorite: true};
-    firstValueFrom(this.newsService.addToFavoriteById(article.articleId)).then(response => {
-        let art = this.articles.find(e => e.articleId === article.articleId);
-        art.isFavorite = true;
-    })
+//   addToFavorite(article:Iarticle): void {
+//     article  = {...article, isFavorite: true};
+//     firstValueFrom(this.newsService.addToFavoriteById(article.articleId)).then(response => {
+//         let art = this.articles.find(e => e.articleId === article.articleId);
+//         art.isFavorite = true;
+//     })
 
-    firstValueFrom(this.newsService.addToFavorite(article)).then(response => {
-        let art = this.articles.find(e => e.articleId === article.articleId);
-        art.isFavorite = true;
-    })
-  }
+//     firstValueFrom(this.newsService.addToFavorite(article)).then(response => {
+//         let art = this.articles.find(e => e.articleId === article.articleId);
+//         art.isFavorite = true;
+//     })
+//   }
 
-  removeFromFavorite(articleId:string):void { 
-    firstValueFrom(this.newsService.removeFavoriteById(articleId)).then(response => {
-        const arti = this.articles.find(e => e.articleId === articleId);
-        arti.isFavorite = false;
-    })
-  }
+//   removeFromFavorite(articleId:string):void { 
+//     firstValueFrom(this.newsService.removeFavoriteById(articleId)).then(response => {
+//         const arti = this.articles.find(e => e.articleId === articleId);
+//         arti.isFavorite = false;
+//     })
+//   }
 
 }

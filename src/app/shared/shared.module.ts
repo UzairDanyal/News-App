@@ -5,12 +5,14 @@ import { ListComponent } from './components/list/list.component';
 import { FormsModule } from '@angular/forms';
 import { SearchComponent } from './components/search/search.component';
 import { SearchPipe } from './pipes/search.pipe';
+import { TimeAgoPipe } from './pipes/time-ago.pipe';
 @NgModule({
   declarations: [
     NewsCardComponent,
     ListComponent,
     SearchComponent,
-    SearchPipe
+    SearchPipe,
+    TimeAgoPipe
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { SearchPipe } from './pipes/search.pipe';
     ListComponent,
     SearchComponent,
     FormsModule,
-    SearchPipe
+    SearchPipe,
+    TimeAgoPipe
   ]
 
 })

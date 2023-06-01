@@ -13,13 +13,16 @@ export class NewsCardComponent {
 
   @Output() action: EventEmitter<Iarticle> = new EventEmitter<Iarticle>()
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private newService: NewsService) {
+  
+  }
 
   toggleFavorite(article: Iarticle): void {
     this.action.emit(article);
   }
 
   navigateToArticle(article:Iarticle) : void {
+    this.newService.navigateToArticle(article);
     this.router.navigateByUrl(`/details/${article.articleId}`);
   }
 

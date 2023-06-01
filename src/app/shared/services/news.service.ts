@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, of } from 'rxjs';
+import { Observable, map, of, throwError } from 'rxjs';
 import { Iarticle } from '../models/article.interface';
 
 @Injectable({
@@ -72,6 +72,24 @@ export class NewsService {
       return of('Server Error: clear local storage.');
     }
 
+  }
+
+  getArticleByArticleId(articleId:string):Observable<Iarticle> {
+    let storage = null;
+    try {
+      storage = JSON.parse(localStorage.getItem('selectedArticle'));
+      if(!storage) {
+      throw new Error(('Server Error: clear local storage.'));
+      }
+    }catch(error){
+      throw new Error(('Server Error: clear local storage.'));
+    }
+  
+    return of(storage);
+  }
+
+  navigateToArticle(article:Iarticle): void {
+     localStorage.setItem('selectedArticle', JSON.stringify(article));
   }
 
   
