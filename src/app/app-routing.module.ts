@@ -1,15 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DetailsComponent } from './shared/components/details/details.component';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('../app/main/main.module').then(m => m.MainModule)
+    loadChildren: () => import('../app/layouts/layouts.module').then(m => m.LayoutsModule)
   },
   {
-    path: 'favourites',
-    loadChildren: () => import('../app/favourite/favourite.module').then(m => m.FavouriteModule)
-  },
+    path: 'details/:id',
+    component: DetailsComponent
+  }
+  // {
+  //   path: 'favourites',
+  //   loadChildren: () => import('../app/favourite/favourite.module').then(m => m.FavouriteModule)
+  // },
 ];
 
 @NgModule({

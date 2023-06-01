@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './components/main/main.component';
 import { SharedModule } from '../shared/shared.module';
-import { DetailsComponent } from './components/details/details.component';
+import { DetailsComponent } from '../shared/components/details/details.component';
 
 
 @NgModule({
